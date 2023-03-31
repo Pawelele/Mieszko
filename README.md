@@ -1,1 +1,3 @@
-# FlatHub
+# Mieszko
+
+Porównywarka cen mieszkań
