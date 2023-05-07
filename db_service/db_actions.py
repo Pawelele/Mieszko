@@ -31,8 +31,8 @@ class Database:
 		establishes connection between service and database
 		:return:
 		"""
-		connection = mysql.connector.connect(
-			user='root', password='root', host='sql_server', port=3306, database="offers"
+		self.db = mysql.connector.connect(
+			user='root', password='root', host='sql_server:3306', database="offers"
 		)
 		print("Db connected")
 
@@ -43,6 +43,7 @@ class Database:
 		pass
 
 	def create_database(self):
+		self.db.cursor.execute("CREATE DATABASE offers")
 		pass
 
 

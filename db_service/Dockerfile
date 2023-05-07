@@ -4,6 +4,4 @@ FROM python:3.9
 WORKDIR /db_service
 COPY . .
 
-RUN pip install -r requirements.txt
-
-CMD ["scrapy", "crawl", "myfancycrawler"]
+RUN pip install mysql-connector-python
