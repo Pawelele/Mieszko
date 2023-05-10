@@ -97,6 +97,10 @@ instance/
 # Scrapy stuff:
 .scrapy
 
+# Scrapper outputs
+Scrapper/flatcrawling/flatcrawling/spiders/log.txt
+Scrapper/flatcrawling/flatcrawling/spiders/offers.json
+
 # Sphinx documentation
 docs/_build/
 
