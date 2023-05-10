@@ -13,6 +13,11 @@ def singleton(cls):
 class Database:
 	"""	Class to access the database """
 
+	@staticmethod
+	def process(body):
+		#MS TODO: PROCESS INCOMING DATA
+		pass
+
 	@classmethod
 	def __call__(cls):
 		if not hasattr(cls, "instance"):
