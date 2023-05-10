@@ -1,3 +1,0 @@
-scrapy
-bs4
-itemadapter
