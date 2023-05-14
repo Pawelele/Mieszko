@@ -1,5 +1,7 @@
+import json
+
 import mysql.connector
-from pymongo import MongoClient
+
 
 def singleton(cls):
 	instances = {}
@@ -13,11 +15,6 @@ def singleton(cls):
 class Database:
 	"""	Class to access the database """
 
-	@staticmethod
-	def process(body):
-		#MS TODO: PROCESS INCOMING DATA
-		pass
-
 	@classmethod
 	def __call__(cls):
 		if not hasattr(cls, "instance"):
@@ -28,8 +25,19 @@ class Database:
 		#MS TODO: sprawdzenie, czy baza istnieje, jeśli nie istnieje - utworzyć
 		self.client = None
 		self.db = None
-		self.check_if_db_exists()
+
 		self.establish_connection()
+		self.create_database()
+
+	def process(self, body):
+		self.fill_database_with_scraped_content(body)
+
+	def fill_database_with_scraped_content(self, body):
+		content = json.loads(body)
+		self.db.cursor.execute(f"""INSERT INTO offers_list VALUES (
+		{content["price"]},{content["price_for_m"]}, {content["area"]},
+		{content["rooms_amount"]}, {content["title"]}, {content["offer"]}, 
+		{content["short_description"]}, {content["href"]}, {content["image"]});""")
 
 	def establish_connection(self):
 		"""
@@ -37,18 +45,17 @@ class Database:
 		:return:
 		"""
 		self.db = mysql.connector.connect(
-			user='root', password='root', host='sql_server:3306', database="offers"
-		)
+				user='root', password='root', host='mysql', port=3306, database="offers"
+			)
 		print("Db connected")
 
 	def close_connection(self):
 		self.client.close()
 
-	def check_if_db_exists(self):
-		pass
 
 	def create_database(self):
-		self.db.cursor.execute("CREATE DATABASE offers")
-		pass
+		self.db.cursor.execute("CREATE DATABASE [IF NOT EXISTS] offers; CREATE TABLE offers_list (ID INT NOT NULL AUTO_INCREMENT, price varchar(30), price_for_m varchar(30), area varchar(30),"
+							   "rooms_amount INT, title varchar(30), offer varchar(30), short_description varchar(max), href varchar(max), image varchar(max));")
+		self.db.cursor.commit()
 
 
