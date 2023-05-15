@@ -45,7 +45,7 @@ class Database:
 		:return:
 		"""
 		self.db = mysql.connector.connect(
-				user='root', password='root', host='mysql', port=3306, database="offers"
+				user='root', password='root', host='127.0.0.1', port=3306, database="offers"
 			)
 		print("Db connected")
 
@@ -54,8 +54,9 @@ class Database:
 
 
 	def create_database(self):
-		self.db.cursor.execute("CREATE DATABASE [IF NOT EXISTS] offers; CREATE TABLE offers_list (ID INT NOT NULL AUTO_INCREMENT, price varchar(30), price_for_m varchar(30), area varchar(30),"
-							   "rooms_amount INT, title varchar(30), offer varchar(30), short_description varchar(max), href varchar(max), image varchar(max));")
-		self.db.cursor.commit()
+		pass
+		# self.db.cursor.execute("CREATE DATABASE [IF NOT EXISTS] offers; CREATE TABLE offers_list (ID INT NOT NULL AUTO_INCREMENT, price varchar(30), price_for_m varchar(30), area varchar(30),"
+		# 					   "rooms_amount INT, title varchar(30), offer varchar(30), short_description varchar(max), href varchar(max), image varchar(max));")
+		# self.db.cursor.commit()
 
 

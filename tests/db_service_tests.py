@@ -2,6 +2,8 @@
 import unittest
 
 import mysql.connector
+from confluent_kafka import Consumer
+from kafka import KafkaProducer
 
 from db_service.db_actions import Database
 
@@ -16,6 +18,28 @@ class TestDatabaseMethods(unittest.TestCase):
 
 	def test_connection(self):
 		connection = mysql.connector.connect(
-			user='root', password='root', host='sql_server', port=3306, database="offers"
+			user='root', password='root', host='127.0.0.1', port=3306, database="offers"
 		)
-		print("Db connected")
+		self.assertIsNotNone(connection)
+
+
+class TestQueueMethods(unittest.TestCase):
+
+	def test_consumer_connection(self):
+
+		conf = {
+				'bootstrap.servers': 'localhost:9092',
+				'group.id': 'my-consumer-group',
+				'auto.offset.reset': 'earliest'
+			}
+
+		consumer = Consumer(conf)
+		topic = 'second_topic'
+		consumer.subscribe([topic])
+
+		msg = consumer.poll(1.0)
+		self.assertIsNotNone(msg)
+
+	def test_producer_connection(self):
+		producer = KafkaProducer(bootstrap_servers='kafka:29092', max_block_ms=10000)
+		self.assertIsNotNone(producer)
