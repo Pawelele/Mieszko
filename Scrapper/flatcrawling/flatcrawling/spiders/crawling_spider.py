@@ -44,7 +44,7 @@ class CrawlingSpider(CrawlSpider):
             clean_data = self.clean_data(data)
 
             try:
-                page_content.update({self.main_index: {
+                yield{
                     "price": clean_data[0],
                     "price_for_m": clean_data[3],
                     "area": clean_data[1],
@@ -54,7 +54,7 @@ class CrawlingSpider(CrawlSpider):
                     "short_description": clean_data[10],
                     "href": self.start_urls[0] + self._get_href(data)[1:],
                     "image": self._get_image(data),
-                }})
+                }
                 self.main_index += 1
             except IndexError as ex:
                 with open("log.txt", "w", encoding="utf-8") as log_file:
