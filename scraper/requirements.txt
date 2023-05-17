@@ -1,0 +1,8 @@
+scrapy
+bs4
+itemadapter
+confluent-kafka
+faker
+kafka-python==2.0.2
+pika
+docker

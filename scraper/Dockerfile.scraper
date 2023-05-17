@@ -1,0 +1,18 @@
+#Dockerfile of servis handling database connection
+FROM python:3.9
+
+COPY requirements.txt /scraper/requirements.txt
+WORKDIR /scraper
+
+RUN pip install -r requirements.txt
+COPY . /scraper
+
+# Install netcat
+RUN apt-get update && \
+    apt-get install -y netcat && \
+    apt-get clean
+
+COPY wait-for-kafka.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-kafka.sh
+
+CMD ["/usr/local/bin/wait-for-kafka.sh", "kafka:9092", "scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]

@@ -1,0 +1,15 @@
+FROM python:3.9
+
+RUN pip install kafka-python==2.0.2
+
+COPY /src/db_listener.py /src/db_listener.py
+
+# Install netcat
+RUN apt-get update && \
+    apt-get install -y netcat && \
+    apt-get clean
+
+COPY wait-for-kafka.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wait-for-kafka.sh
+
+CMD ["/usr/local/bin/wait-for-kafka.sh", "kafka:9092", "python", "/src/db_listener.py"]

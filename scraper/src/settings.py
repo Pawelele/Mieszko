@@ -9,8 +9,8 @@
 
 BOT_NAME = "flatcrawling"
 
-SPIDER_MODULES = ["flatcrawling.spiders"]
-NEWSPIDER_MODULE = "flatcrawling.spiders"
+SPIDER_MODULES = ["src.spiders"]
+NEWSPIDER_MODULE = "src.spiders"
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -62,9 +62,9 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {
-   "flatcrawling.pipelines.FlatcrawlingPipeline": 300,
-}
+# ITEM_PIPELINES = {
+#    "src.pipelines.FlatcrawlingPipeline": 300,
+# }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
