@@ -6,6 +6,17 @@ from bs4 import BeautifulSoup, Tag
 from requests import Response
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
+from kafka import KafkaProducer
+from time import sleep
+
+import logging
+
+# Configure the logging module
+logging.basicConfig(level=logging.INFO)
+
+# Create a logger instance
+logger = logging.getLogger(__name__)
+
 
 
 class CrawlingSpider(CrawlSpider):
@@ -26,6 +37,14 @@ class CrawlingSpider(CrawlSpider):
     )
 
     main_index = 1
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        sleep(10)
+        self.producer = KafkaProducer(
+            bootstrap_servers=['kafka:9092'],
+            value_serializer=lambda v: json.dumps(v).encode('utf-8')
+        )
 
     def parse(self, response, **kwargs):
         pass
@@ -59,11 +78,16 @@ class CrawlingSpider(CrawlSpider):
             except IndexError as ex:
                 with open("log.txt", "w", encoding="utf-8") as log_file:
                     log_file.write(str(clean_data) + "\n" + str(ex))
-
-        with open("offers.json", "w") as output:
-            json.dump(page_content, output)
+        
+        logger.info("Pushed message")
+        self.send_message('db_topic', str(clean_data))
+         
     #MS TODO: TBD passing results to DB service
 
+    def send_message(self, topic, message):
+        self.producer.send(topic, message)
+        self.producer.flush()
+    
     @staticmethod
     def clean_data(data: Tag) -> list[str]:
         """

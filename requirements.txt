@@ -1,6 +1,0 @@
-scrapy
-bs4
-itemadapter
-pandas
-scikit-learn
-confluent-kafka

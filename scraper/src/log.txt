@@ -1,0 +1,2 @@
+['REKLAMA', 'od 43 do 79 m2', '2 - 4 pokoje', 'Mirabelkowa Aleja - Nowe osiedle mieszkaniowe', 'Zamieszkaj na Zlotnie, wybierz nowoczesne i komfortowe osiedle mieszkaniowe. Mieszkania zostaly dostosowane do zmieniajacych sie trendow na rynku nieruchomosci, wnetrza posiadaja duzy potencjal aranzacyjny, wpisujac sie w aktualne preferencje Klientow.', 'Lodz, Podchorazych', 'Zapytaj o cene!', 'Sprawdz!  >>>']
+list index out of range

@@ -5,7 +5,7 @@ import mysql.connector
 from confluent_kafka import Consumer
 from kafka import KafkaProducer
 
-from db_service.db_actions import Database
+from db_service.src.db_actions import Database
 
 
 class TestDatabaseMethods(unittest.TestCase):
