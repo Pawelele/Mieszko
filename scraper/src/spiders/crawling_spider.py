@@ -61,7 +61,8 @@ class CrawlingSpider(CrawlSpider):
         page_content = {}
         for data in datas:
             clean_data = self.clean_data(data)
-
+            logger.info("Pushed message")
+            self.send_message('db_topic', str(clean_data))
             try:
                 yield{
                     "price": clean_data[0],
@@ -79,9 +80,6 @@ class CrawlingSpider(CrawlSpider):
                 with open("log.txt", "w", encoding="utf-8") as log_file:
                     log_file.write(str(clean_data) + "\n" + str(ex))
         
-        logger.info("Pushed message")
-        self.send_message('db_topic', str(clean_data))
-         
     #MS TODO: TBD passing results to DB service
 
     def send_message(self, topic, message):
