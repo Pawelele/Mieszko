@@ -23,18 +23,6 @@ services:
     networks:
       - kafka-net
 
-#  scraper:
-#    build:
-#      context: ./scraper
-#      dockerfile: Dockerfile.scraper
-#    depends_on:
-#      - kafka
-#    command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
-#    networks:
-#      - kafka-net
-
-
-
   mysql:
     image: mysql:latest
     restart: always
@@ -45,16 +33,6 @@ services:
        - '3306:3306'
     networks:
        - kafka-net
-
-
-
-  # app:
-  #   build: .
-  #   depends_on:
-  #     - kafka
-  #   networks:
-  #     - kafka-net
-  #   restart: on-failure
 
 networks:
   kafka-net:

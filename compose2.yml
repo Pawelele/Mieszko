@@ -7,6 +7,7 @@ services:
     command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
     networks:
       - mieszko_kafka-net
+
   db_service:
     build:
       context: ./db_service

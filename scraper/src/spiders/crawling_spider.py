@@ -71,7 +71,7 @@ class CrawlingSpider(CrawlSpider):
                     "rooms_amount": clean_data[2],
                     "title": clean_data[4],
                     "offer": "for rent" if "wynajem" in clean_data[10] or "wynajem" in clean_data[4] else "for sale",
-                    "short_description": clean_data[10],
+                    "city": clean_data[10].split(",")[0].split()[1],
                     "href": self.start_urls[0] + self._get_href(data)[1:],
                     "image": self._get_image(data),
                 }

@@ -18,7 +18,7 @@ class TestDatabaseMethods(unittest.TestCase):
 
 	def test_connection(self):
 		connection = mysql.connector.connect(
-			user='root', password='root', host='127.0.0.1', port=3306, database="offers"
+			user='root', password='root', host='localhost', port=3306, database="offers"
 		)
 		self.assertIsNotNone(connection)
 

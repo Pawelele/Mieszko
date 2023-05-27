@@ -1,7 +1,7 @@
 FROM python:3.9
 
 RUN pip install kafka-python==2.0.2
-
+RUN pip install fastAPI
 COPY /src/db_listener.py /src/db_listener.py
 
 # Install netcat

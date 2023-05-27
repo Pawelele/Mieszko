@@ -45,18 +45,50 @@ class Database:
 		:return:
 		"""
 		self.db = mysql.connector.connect(
-				user='root', password='root', host='127.0.0.1', port=3306, database="offers"
+				user='root', password='root', host='mysql', port=3306, database="offers"
 			)
 		print("Db connected")
 
 	def close_connection(self):
 		self.client.close()
 
+	def get_from_db(self, kwargs):
+		query = f"SELECT * FROM offers"
+
+		if kwargs:
+			query += " WHERE "
+
+			for key, value in kwargs.items():
+				query += f"{key} = {value} AND "
+			query = query[:-4]
+
+		data = self.db.cursor.execute(query).fetchall()
+		return [{"id": el[0],
+				 "title": el[5],
+				 "squareMeters": el[3],
+				 "roomNumber": el[4],
+				 "price": el[1],
+				 "pricePerSquareMeter": [2],
+				 "city": el[7],
+				 "photo": el[9],
+				 "href":el[10]
+				 } for el in data]
 
 	def create_database(self):
 		pass
-		# self.db.cursor.execute("CREATE DATABASE [IF NOT EXISTS] offers; CREATE TABLE offers_list (ID INT NOT NULL AUTO_INCREMENT, price varchar(30), price_for_m varchar(30), area varchar(30),"
-		# 					   "rooms_amount INT, title varchar(30), offer varchar(30), short_description varchar(max), href varchar(max), image varchar(max));")
+		# self.db.cursor.execute("CREATE DATABASE [IF NOT EXISTS] offers;
+	#
+# CREATE TABLE offers_list (
+# ID INT NOT NULL AUTO_INCREMENT,
+# price varchar(30),
+# price_for_m varchar(30),
+# area varchar(30),"
+# rooms_amount INT,
+# title varchar(30),
+# offer varchar(30),
+# city varchar(max),
+# href varchar(max),
+# image varchar(max));")
 		# self.db.cursor.commit()
 
 
