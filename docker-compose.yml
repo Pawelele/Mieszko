@@ -10,6 +10,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
+      - mysql
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
@@ -17,39 +18,33 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     restart: on-failure
+    ports:
+      - '9092:9092'
     networks:
       - kafka-net
 
-  scraper:
-    build:
-      context: ./scraper
-      dockerfile: Dockerfile.scraper
-    depends_on:
-      - kafka
-    command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
-    networks:
-      - kafka-net
+#  scraper:
+#    build:
+#      context: ./scraper
+#      dockerfile: Dockerfile.scraper
+#    depends_on:
+#      - kafka
+#    command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
+#    networks:
+#      - kafka-net
 
-  db_service:
-    build:
-      context: ./db_service
-      dockerfile: Dockerfile.consumer
-    command: ["python", "/src/db_listener.py"]
-    depends_on:
-      - kafka
-    networks:
-      - kafka-net
 
-  # mysql:
-  #   build: ./mysql/
-  #   restart: always
-  #   environment:
-  #     MYSQL_DATABASE: 'offers'
-  #     MYSQL_ROOT_PASSWORD: 'root'
-  #   ports:
-  #     - '3306:3306'
-  #   networks:
-  #     - kafka-net
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+       MYSQL_DATABASE: 'offers'
+       MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+       - '3306:3306'
+    networks:
+       - kafka-net
 
 
 

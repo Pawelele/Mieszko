@@ -45,7 +45,7 @@ class CrawlingSpider(CrawlSpider):
             bootstrap_servers=['kafka:9092'],
             value_serializer=lambda v: json.dumps(v).encode('utf-8')
         )
-
+#portainer
     def parse(self, response, **kwargs):
         pass
 

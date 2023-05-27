@@ -9,7 +9,7 @@ from db_service.src.db_actions import Database
 
 
 class TestDatabaseMethods(unittest.TestCase):
-
+#cqrs
 	def test_singleton(self):
 		db_connection = Database()
 		second_connection = Database()
@@ -34,7 +34,7 @@ class TestQueueMethods(unittest.TestCase):
 			}
 
 		consumer = Consumer(conf)
-		topic = 'second_topic'
+		topic = 'db_topic'
 		consumer.subscribe([topic])
 
 		msg = consumer.poll(1.0)
