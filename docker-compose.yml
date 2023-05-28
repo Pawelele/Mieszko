@@ -23,19 +23,31 @@ services:
     networks:
       - kafka-net
 
-#  scraper:
-#    build:
-#      context: ./scraper
-#      dockerfile: Dockerfile.scraper
-#    depends_on:
-#      - kafka
-#    command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
-#    networks:
-#      - kafka-net
+  scraper:
+    build:
+      context: ./scraper
+      dockerfile: Dockerfile.scraper
+    command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
+    depends_on:
+      - kafka
+    networks:
+      - kafka-net
 
-
+  db_service:
+    build:
+      context: ./db_service
+      dockerfile: Dockerfile.consumer
+    command: ["python", "/src/db_listener.py"]
+    depends_on:
+      - kafka
+      - mysql
+    networks:
+      - kafka-net
 
   mysql:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile.mysql
     image: mysql:latest
     restart: always
     environment:
@@ -45,16 +57,6 @@ services:
        - '3306:3306'
     networks:
        - kafka-net
-
-
-
-  # app:
-  #   build: .
-  #   depends_on:
-  #     - kafka
-  #   networks:
-  #     - kafka-net
-  #   restart: on-failure
 
 networks:
   kafka-net:

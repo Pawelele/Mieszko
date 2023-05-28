@@ -12,7 +12,7 @@ from time import sleep
 import logging
 
 # Configure the logging module
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 # Create a logger instance
 logger = logging.getLogger(__name__)
@@ -41,6 +41,7 @@ class CrawlingSpider(CrawlSpider):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         sleep(10)
+        logging.disable()
         self.producer = KafkaProducer(
             bootstrap_servers=['kafka:9092'],
             value_serializer=lambda v: json.dumps(v).encode('utf-8')

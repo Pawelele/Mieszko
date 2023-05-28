@@ -9,10 +9,12 @@ from kafka import KafkaConsumer
 import logging
 
 # Configure the logging module
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 # Create a logger instance
 logger = logging.getLogger(__name__)
+
+logging.disable()
 
 sleep(10)
 
