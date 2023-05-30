@@ -3,6 +3,7 @@ import './App.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import MainView from './views/MainView';
+import SearchView from './views/SearchView';
 
 const router = createBrowserRouter([
   {
@@ -10,7 +11,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { path: '/', element: <MainView /> },
-      { path: '/about', element: <h1>About</h1> },
+      { path: '/mieszkania', element: <SearchView /> },
     ]
   }
 ])

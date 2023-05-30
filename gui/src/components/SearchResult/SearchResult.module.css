@@ -1,0 +1,31 @@
+.searchResult {
+  display: flex;
+  width: 1090px;
+  padding: 16px 16px 16px 16px;
+  background-color: #373737;
+}
+
+.image img {
+  width: 189px;
+  height: 121px;
+  margin-right: 20px;
+  box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.data {
+  display: flex;
+  gap: 27px;
+}
