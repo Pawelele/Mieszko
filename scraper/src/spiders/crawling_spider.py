@@ -63,7 +63,7 @@ class CrawlingSpider(CrawlSpider):
         for data in datas:
             clean_data = self.clean_data(data)
             logger.info("Pushed message")
-
+            print(clean_data)
             try:
                 self.send_message('db_topic', str(
                {
@@ -75,7 +75,8 @@ class CrawlingSpider(CrawlSpider):
                     "offer": "for rent" if "wynajem" in clean_data[10] or "wynajem" in clean_data[4] else "for sale",
                     "short_description": clean_data[10],
                     "href": self.start_urls[0] + self._get_href(data)[1:],
-                    "image": self._get_image(data),
+                    "image": self._get_image(data).split()[0],
+                    "city": clean_data[6].split()[1]
                 }))
                 self.main_index += 1
             except IndexError as ex:
@@ -95,6 +96,7 @@ class CrawlingSpider(CrawlSpider):
         :param data: Part of the html site
         :return: list with concrete information extracted from the text from data
         """
+
         return [
             re.sub(r'\\u\w{4}', "", el.strip()
                 .replace("ą", "a")
