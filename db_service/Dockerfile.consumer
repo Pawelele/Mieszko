@@ -1,8 +1,10 @@
 FROM python:3.9
 
 RUN pip install kafka-python==2.0.2
+RUN pip install mysql-connector-python
 
 COPY /src/db_listener.py /src/db_listener.py
+COPY /src/db_actions.py /src/db_actions.py
 
 # Install netcat
 RUN apt-get update && \

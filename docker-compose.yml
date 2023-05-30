@@ -28,19 +28,19 @@ services:
       context: ./scraper
       dockerfile: Dockerfile.scraper
     command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
-    depends_on:
-      - kafka
+#    depends_on:
+#      - kafka
     networks:
       - kafka-net
-
+#
   db_service:
     build:
       context: ./db_service
       dockerfile: Dockerfile.consumer
     command: ["python", "/src/db_listener.py"]
-    depends_on:
-      - kafka
-      - mysql
+#    depends_on:
+#      - kafka
+#      - mysql
     networks:
       - kafka-net
 

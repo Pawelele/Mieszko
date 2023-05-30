@@ -59,13 +59,14 @@ class CrawlingSpider(CrawlSpider):
 
         soup = BeautifulSoup(response.text, "html.parser")
         datas = soup.findAll("article")
-        page_content = {}
+
         for data in datas:
             clean_data = self.clean_data(data)
             logger.info("Pushed message")
-            self.send_message('db_topic', str(clean_data))
+
             try:
-                yield{
+                self.send_message('db_topic', str(
+               {
                     "price": clean_data[0],
                     "price_for_m": clean_data[3],
                     "area": clean_data[1],
@@ -75,7 +76,7 @@ class CrawlingSpider(CrawlSpider):
                     "short_description": clean_data[10],
                     "href": self.start_urls[0] + self._get_href(data)[1:],
                     "image": self._get_image(data),
-                }
+                }))
                 self.main_index += 1
             except IndexError as ex:
                 with open("log.txt", "w", encoding="utf-8") as log_file:
@@ -84,7 +85,7 @@ class CrawlingSpider(CrawlSpider):
     #MS TODO: TBD passing results to DB service
 
     def send_message(self, topic, message):
-        self.producer.send(topic, message)
+        self.producer.send(topic, str(message))
         self.producer.flush()
     
     @staticmethod
@@ -115,6 +116,7 @@ class CrawlingSpider(CrawlSpider):
                 .replace("Ź", "Z")
                 .replace("Ż", "Z") 
                 .replace("\u00a0", " "))
+                .replace(",", ";")
             for el in data.text.split("\n")
             if el.strip().replace("\xa0", " ") != ""
                and el not in ("WYRÓŻNIONE", "OBEJRZANE", "Więcej", "Skontaktuj się")
