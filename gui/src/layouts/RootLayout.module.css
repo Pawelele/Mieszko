@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* TODO: Fix with Flex 1 */
+.content {
+  height: 90vh;
+}
