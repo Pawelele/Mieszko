@@ -15,7 +15,7 @@ const FlatModal = (props) => {
           <img src={props.flat.images[0]} />
         </div>
         <div className={classes.content}>
-          <h2>{props.flat.title}</h2>
+          <h3>{props.flat.title}</h3>
           <p>{props.flat.area}</p>
           <p>{props.flat.xxx}</p>
 
@@ -26,7 +26,7 @@ const FlatModal = (props) => {
         </div>
       </div>
       <div className={classes.rowTwo}>
-        <h2>Opis</h2>
+        <h3>Opis</h3>
         <p>{props.flat.description}</p>
       </div>
     </div>

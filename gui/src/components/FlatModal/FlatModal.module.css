@@ -26,6 +26,7 @@
 }
 
 .content {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -33,6 +34,8 @@
   border-radius: 8px;
   color: white;
   background-color: #303030;
+  padding-left: 15px;
+  padding-right: 15px;
   font-size: 16px;
   box-shadow: 2px 3px 18px rgba(0, 0, 0, 0.25);
 }
@@ -43,9 +46,11 @@
 }
 
 .rowTwo {
-  width: 900px;
+  width: 842px;
   height: 304px;
   color: white;
+  padding-left: 15px;
+  padding-right: 15px;
   background-color: #303030;
   font-size: 16px;
   border-radius: 8px;
@@ -59,4 +64,19 @@
   font-weight: 800;
   color: #00FFEF;
   cursor: pointer;
+}
+
+.price {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  bottom: 10px;
+  right: 20px;
+}
+
+.price p, h2 {
+ margin-top: 0;
+ margin-bottom: 5px;
 }
