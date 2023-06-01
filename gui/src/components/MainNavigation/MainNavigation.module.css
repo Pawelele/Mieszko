@@ -27,3 +27,9 @@ ul {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.button:hover {
+  background-color: #01cbbd;
+  transform: scale(1.01);
+  transition: 0.3s;
+}

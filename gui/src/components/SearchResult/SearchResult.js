@@ -1,8 +1,13 @@
 import classes from './SearchResult.module.css';
 
-const SearchResult = ({ searchResult }) => {
+const SearchResult = ({ searchResult, onClick }) => {
+
+  const searchResultClickHandler = (event) => {
+    onClick(searchResult);
+  }
+
   return (
-    <div className={classes.searchResult}>
+    <div className={classes.searchResult} onClick={searchResultClickHandler}>
       <div className={classes.image}>
         <img src={searchResult.images[0]} />
       </div>
@@ -25,10 +30,10 @@ const SearchResult = ({ searchResult }) => {
         </div>
         <div className={classes.right}>
           <div className={classes.price}>
-            {searchResult.price}
+            {searchResult.price} zł
           </div>
           <div className={classes.pricePerMeter}>
-            {searchResult.pricePerMeter}
+            {searchResult.pricePerMeter} zł/m2
           </div>
         </div>
       </div>

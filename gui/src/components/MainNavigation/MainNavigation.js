@@ -1,11 +1,11 @@
 import logo from '../../assets/img/logo.png';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
   return (
     <header className={classes.wrapper}>
-      <div className={classes.logo}><img src={logo} /></div>
+      <Link to="/"><div className={classes.logo}><img src={logo} /></div></Link>
       <nav className={classes.mainNav}>
         <ul>
           <li>

@@ -1,5 +1,7 @@
 import SearchResults from '../components/SearchResults/SearchResults';
 import classes from './SearchView.module.css';
+import Modal from '../components/FlatModal/FlatModal';
+import { useState } from 'react';
 
 const results = [
   {
@@ -43,18 +45,46 @@ const results = [
 ]
 
 const SearchView = () => {
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchResults = (data) => {
+    setLoading(true);
+    setResults([]);
+    setError(null);
+
+
+    fetch('http://127.0.0.1:8000/flats?'+ new URLSearchParams(data))
+    .then(response => {
+      if(!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      return response.json()
+    })
+    .then(data => {
+      setResults(data.message);
+      setLoading(false);
+    })
+    .catch(error => {
+      setError(error.message);
+      setLoading(false);
+    })
+  }
+
+
   return (
-    <div className={classes.wrapper}>
-      <form>
-        <input type="text" placeholder="Szukaj" className={classes.searchBar} />
-      </form>
+    <>
+      <div className={classes.wrapper}>
+        <form>
+          <input type="text" placeholder="Szukaj" className={classes.searchBar} />
+        </form>
 
-      <div className={classes.results}>
-
-        <SearchResults results={results} />
-
+        <div className={classes.results}>
+          <SearchResults results={results} />
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
