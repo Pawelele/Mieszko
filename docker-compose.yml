@@ -10,6 +10,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
+      - mysql
       - zookeeper
     environment:
       KAFKA_BROKER_ID: 1
@@ -17,6 +18,8 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     restart: on-failure
+    ports:
+      - '9092:9092'
     networks:
       - kafka-net
 
@@ -24,42 +27,40 @@ services:
     build:
       context: ./scraper
       dockerfile: Dockerfile.scraper
-    depends_on:
-      - kafka
     command: ["scrapy", "crawl", "myfancycrawler", "-s", "LOG_LEVEL=INFO", "--nolog", "-s", "JOBDIR=crawls/state"]
+#    depends_on:
+#      - kafka
     networks:
       - kafka-net
-
+#
   db_service:
     build:
       context: ./db_service
       dockerfile: Dockerfile.consumer
-    command: ["python", "/src/db_listener.py"]
-    depends_on:
-      - kafka
+    command: sh -c "uvicorn src.endpoints:app --host 0.0.0.0 --port 8000"
+    #żeby uzbierać dane do bazy odkomentować command poniżej a zakomentować tenz gory, ten z góry odpala fastapi, nie wiem jak odpalić je jednocześnie bo && nie działa
+#    command: sh -c "python /src/db_listener.py"
+#    depends_on:
+#      - kafka
+#      - mysql
+    ports:
+      - 8000:8000
     networks:
       - kafka-net
 
-  # mysql:
-  #   build: ./mysql/
-  #   restart: always
-  #   environment:
-  #     MYSQL_DATABASE: 'offers'
-  #     MYSQL_ROOT_PASSWORD: 'root'
-  #   ports:
-  #     - '3306:3306'
-  #   networks:
-  #     - kafka-net
-
-
-
-  # app:
-  #   build: .
-  #   depends_on:
-  #     - kafka
-  #   networks:
-  #     - kafka-net
-  #   restart: on-failure
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile.mysql
+    image: mysql:latest
+    restart: always
+    environment:
+       MYSQL_DATABASE: 'offers'
+       MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+       - '3306:3306'
+    networks:
+       - kafka-net
 
 networks:
   kafka-net:

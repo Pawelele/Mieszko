@@ -12,7 +12,7 @@ from time import sleep
 import logging
 
 # Configure the logging module
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 # Create a logger instance
 logger = logging.getLogger(__name__)
@@ -41,11 +41,12 @@ class CrawlingSpider(CrawlSpider):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         sleep(10)
+        logging.disable()
         self.producer = KafkaProducer(
             bootstrap_servers=['kafka:9092'],
             value_serializer=lambda v: json.dumps(v).encode('utf-8')
         )
-
+#portainer
     def parse(self, response, **kwargs):
         pass
 
@@ -58,13 +59,14 @@ class CrawlingSpider(CrawlSpider):
 
         soup = BeautifulSoup(response.text, "html.parser")
         datas = soup.findAll("article")
-        page_content = {}
+
         for data in datas:
             clean_data = self.clean_data(data)
             logger.info("Pushed message")
-            self.send_message('db_topic', str(clean_data))
+            print(clean_data)
             try:
-                yield{
+                self.send_message('db_topic', str(
+               {
                     "price": clean_data[0],
                     "price_for_m": clean_data[3],
                     "area": clean_data[1],
@@ -73,8 +75,9 @@ class CrawlingSpider(CrawlSpider):
                     "offer": "for rent" if "wynajem" in clean_data[10] or "wynajem" in clean_data[4] else "for sale",
                     "short_description": clean_data[10],
                     "href": self.start_urls[0] + self._get_href(data)[1:],
-                    "image": self._get_image(data),
-                }
+                    "image": self._get_image(data).split()[0],
+                    "city": clean_data[6].split()[1]
+                }))
                 self.main_index += 1
             except IndexError as ex:
                 with open("log.txt", "w", encoding="utf-8") as log_file:
@@ -83,7 +86,7 @@ class CrawlingSpider(CrawlSpider):
     #MS TODO: TBD passing results to DB service
 
     def send_message(self, topic, message):
-        self.producer.send(topic, message)
+        self.producer.send(topic, str(message))
         self.producer.flush()
     
     @staticmethod
@@ -93,6 +96,7 @@ class CrawlingSpider(CrawlSpider):
         :param data: Part of the html site
         :return: list with concrete information extracted from the text from data
         """
+
         return [
             re.sub(r'\\u\w{4}', "", el.strip()
                 .replace("ą", "a")
@@ -114,6 +118,7 @@ class CrawlingSpider(CrawlSpider):
                 .replace("Ź", "Z")
                 .replace("Ż", "Z") 
                 .replace("\u00a0", " "))
+                .replace(",", ";")
             for el in data.text.split("\n")
             if el.strip().replace("\xa0", " ") != ""
                and el not in ("WYRÓŻNIONE", "OBEJRZANE", "Więcej", "Skontaktuj się")
