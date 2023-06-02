@@ -1,7 +1,7 @@
 import SearchResults from '../components/SearchResults/SearchResults';
 import classes from './SearchView.module.css';
 import Modal from '../components/FlatModal/FlatModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 const SearchView = () => {
@@ -46,17 +46,21 @@ const SearchView = () => {
     },
   ]
 
-  const [results, setResults] = useState(testResults);
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchResults = (data) => {
+  useEffect(() => {
+    fetchResults();
+  }, []);
+
+  const fetchResults = () => {
     setLoading(true);
     setResults([]);
     setError(null);
 
 
-    fetch('http://127.0.0.1:8000/flats?'+ new URLSearchParams(data))
+    fetch('http://127.0.0.1:8000/get_offers2?' + new URLSearchParams({city: 'Warszawa'}))
     .then(response => {
       if(!response.ok) {
         throw new Error('Something went wrong!');
@@ -64,7 +68,8 @@ const SearchView = () => {
       return response.json()
     })
     .then(data => {
-      setResults(data.message);
+      console.log(data);
+      setResults(data);
       setLoading(false);
     })
     .catch(error => {
