@@ -80,3 +80,13 @@
  margin-top: 0;
  margin-bottom: 5px;
 }
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #01cbbd;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}

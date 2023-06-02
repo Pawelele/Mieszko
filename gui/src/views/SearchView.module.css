@@ -20,3 +20,20 @@
 .searchBar:focus {
   outline: none;
 }
+
+.searchBar::placeholder {
+  color: #232323;
+  font-weight: 700;
+}
+
+.results {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  height: 530px;
+  margin-top: 20px;
+}
+
+.results::-webkit-scrollbar {
+  display: none;
+}

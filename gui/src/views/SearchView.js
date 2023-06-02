@@ -69,7 +69,7 @@ const SearchView = () => {
     })
     .then(data => {
       console.log(data);
-      setResults(data);
+      setResults(data.offers);
       setLoading(false);
     })
     .catch(error => {
