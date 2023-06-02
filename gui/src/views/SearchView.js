@@ -47,20 +47,33 @@ const SearchView = () => {
   ]
 
   const [results, setResults] = useState([]);
+  const [filteredResults, setFilteredResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchInputValue, setSearchInputValue] = useState('Warszawa');
 
   useEffect(() => {
-    fetchResults();
+    fetchResults(searchInputValue);
   }, []);
 
-  const fetchResults = () => {
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      fetchResults(searchInputValue);
+    }, 2000);
+
+    return () => {
+      clearTimeout(identifier);
+    }
+  }, [searchInputValue]);
+
+  const fetchResults = (searchValue) => {
     setLoading(true);
     setResults([]);
+    setFilteredResults([]);
     setError(null);
 
 
-    fetch('http://127.0.0.1:8000/get_offers2?' + new URLSearchParams({city: 'Warszawa'}))
+    fetch('http://127.0.0.1:8000/get_offers2?' + new URLSearchParams({city: searchValue}))
     .then(response => {
       if(!response.ok) {
         throw new Error('Something went wrong!');
@@ -71,6 +84,12 @@ const SearchView = () => {
       console.log(data);
       setResults(data.offers);
       setLoading(false);
+
+      const filteredResults = data.offers.filter((result) => {
+        return result.city.includes(searchInputValue);
+      });
+
+      setFilteredResults(filteredResults);
     })
     .catch(error => {
       setError(error.message);
@@ -78,16 +97,28 @@ const SearchView = () => {
     })
   }
 
+  const searchInputChangeHandler = (event) => {
+    const inputValue = event.target.value;
+    setSearchInputValue(inputValue);
+  }
+
 
   return (
     <>
       <div className={classes.wrapper}>
         <form>
-          <input type="text" placeholder="Szukaj" className={classes.searchBar} />
+          <input
+            type="text"
+            placeholder="Szukaj"
+            className={classes.searchBar}
+            onChange={searchInputChangeHandler}
+            value={searchInputValue}
+          />
         </form>
 
         <div className={classes.results}>
-          <SearchResults results={results} />
+          {filteredResults && <SearchResults results={filteredResults} />}
+          {error && <p className={classes.error}>{error}</p>}
         </div>
       </div>
     </>
