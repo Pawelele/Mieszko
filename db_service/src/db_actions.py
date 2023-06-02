@@ -61,7 +61,7 @@ class Database:
 			for item in body.split(","):
 				key = item.split("\': \'")[0].replace("\'", "").replace("{", "").replace("}", "").strip()
 				if "href" in key or "image" in key:
-					value = "".join(item.split("\': \'")[1:2]).replace("\'", "").replace("{", "").replace("}", "").strip()
+					value = "".join(item.split("\': \'")[1:2]).replace("\'", "").replace("{", "").replace("}", "").replace("\"", "").strip()
 				else:
 					value = item.split("\': \'")[1].replace("\'", "").replace("{", "").replace("}", "").strip()
 				dicto.update({key: value})

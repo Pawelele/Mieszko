@@ -75,7 +75,7 @@ class CrawlingSpider(CrawlSpider):
                     "offer": "for rent" if "wynajem" in clean_data[10] or "wynajem" in clean_data[4] else "for sale",
                     "short_description": clean_data[10],
                     "href": self.start_urls[0] + self._get_href(data)[1:],
-                    "image": self._get_image(data).split()[0],
+                    "image": self._get_image(data).split()[0].replace("\"", ""),
                     "city": clean_data[6].split()[1]
                 }))
                 self.main_index += 1
