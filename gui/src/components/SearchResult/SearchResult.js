@@ -9,19 +9,19 @@ const SearchResult = ({ searchResult, onClick }) => {
   return (
     <div className={classes.searchResult} onClick={searchResultClickHandler}>
       <div className={classes.image}>
-        <img src={searchResult.images[0]} />
+        <img src={searchResult.photo} />
       </div>
       <div className={classes.content}>
         <div className={classes.left}>
           <div className={classes.region}>
-            {searchResult.city}, {searchResult.district}
+            {searchResult.city} {searchResult.type}
           </div>
           <div className={classes.title}>
             {searchResult.title}
           </div>
           <div className={classes.data}>
             <div className={classes.area}>
-              {searchResult.area} m2
+              {searchResult.area}
             </div>
             <div className={classes.rooms}>
               {searchResult.rooms} pokoje
@@ -30,10 +30,10 @@ const SearchResult = ({ searchResult, onClick }) => {
         </div>
         <div className={classes.right}>
           <div className={classes.price}>
-            {searchResult.price} zł
+            {searchResult.price}
           </div>
           <div className={classes.pricePerMeter}>
-            {searchResult.pricePerMeter} zł/m2
+            {searchResult.price_per_meter}
           </div>
         </div>
       </div>
