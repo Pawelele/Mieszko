@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import classes from './RootLayout.module.css';
 import MainNavigation from '../components/MainNavigation/MainNavigation';
 import ColoredLine from '../components/ColoredLine/ColoredLine';
-import Footer from '../components/Footer/Footer';
+import FooterComponent from '../components/FooterComponent/FooterComponent';
 
 const RootLayout = () => {
   return (
@@ -15,7 +15,7 @@ const RootLayout = () => {
         <Outlet />
       </div>
       <div className={classes.footer}>
-        <Footer />
+        <FooterComponent />
       </div>
     </div>
   )
