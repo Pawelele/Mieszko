@@ -1,7 +1,8 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 57px 35px 0 83px;
+  align-items: center;
+  padding: 40px 35px 0 83px;
 }
 
 .logo img {
@@ -21,8 +22,8 @@ ul {
   font-size: 1.6rem;
   font-weight: 700;
   background-color: #00FFEF;
-  width: 148px;
-  height: 50px;
+  width: 145px;
+  height: 46px;
   border: none;
   border-radius: 8px;
   cursor: pointer;

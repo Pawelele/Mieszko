@@ -9,14 +9,15 @@ const FlatModal = (props) => {
 
   return (
     <div className={classes.wrapper}>
-      <p className={classes.exitButton} onClick={closeModalHandler}>X</p>
+      <p className={classes.exitButton} onClick={closeModalHandler}>x</p>
       <div className={classes.rowOne}>
         <div className={classes.image}>
           <img src={props.flat.photo} />
         </div>
         <div className={classes.content}>
-          <h3>{props.flat.title}</h3>
+          <h3 className={classes.title}>{props.flat.title}</h3>
           <p>{props.flat.area}</p>
+          <p>{props.flat.rooms} pokoje</p>
           <p>{props.flat.type}</p>
 
           <div className={classes.price}>

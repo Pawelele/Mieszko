@@ -2,7 +2,18 @@ import SearchResults from '../components/SearchResults/SearchResults';
 import classes from './SearchView.module.css';
 import Modal from '../components/FlatModal/FlatModal';
 import { useEffect, useState } from 'react';
+import HashLoader from "react-spinners/HashLoader";
+import searchIcon from '../assets/img/search_icon.svg';
 
+const override = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 const SearchView = () => {
   const testResults = [
@@ -56,17 +67,19 @@ const SearchView = () => {
     fetchResults(searchInputValue);
   }, []);
 
-  useEffect(() => {
-    const identifier = setTimeout(() => {
-      fetchResults(searchInputValue);
-    }, 2000);
+  // debounce auto search after 2 seconds of no typing
+  // useEffect(() => {
+  //   const identifier = setTimeout(() => {
+  //     fetchResults(searchInputValue);
+  //   }, 2000);
 
-    return () => {
-      clearTimeout(identifier);
-    }
-  }, [searchInputValue]);
+  //   return () => {
+  //     clearTimeout(identifier);
+  //   }
+  // }, [searchInputValue]);
 
   const fetchResults = (searchValue) => {
+    console.log('fetching results fired');
     setLoading(true);
     setResults([]);
     setFilteredResults([]);
@@ -102,11 +115,16 @@ const SearchView = () => {
     setSearchInputValue(inputValue);
   }
 
+  const searchHandler = (event) => {
+    event.preventDefault();
+    fetchResults(searchInputValue);
+  }
+
 
   return (
     <>
       <div className={classes.wrapper}>
-        <form>
+        <form className={classes.searchForm} onSubmit={searchHandler}>
           <input
             type="text"
             placeholder="Szukaj"
@@ -114,6 +132,7 @@ const SearchView = () => {
             onChange={searchInputChangeHandler}
             value={searchInputValue}
           />
+          <button className={classes.submitButton}><img src={searchIcon} /></button>
         </form>
 
         <div className={classes.results}>
@@ -121,6 +140,14 @@ const SearchView = () => {
           {error && <p className={classes.error}>{error}</p>}
         </div>
       </div>
+      <HashLoader
+        color={'#00FFEF'}
+        loading={loading}
+        cssOverride={override}
+        size={90}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
     </>
   )
 }

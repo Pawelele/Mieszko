@@ -15,19 +15,19 @@
 }
 
 .logo {
-  width: 809px;
-  height: 113px;
+  width: 728px;
+  height: 102px;
 }
 
 .title {
   font-size: 3rem;
   font-weight: 700;
-  margin-top: 34px;
+  margin-top: 35px;
 }
 
 .button {
-  width: 249px;
-  height: 84px;
+  width: 224px;
+  height: 75px;
   background-color: #00FFEF;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
   margin-top: 49px;
