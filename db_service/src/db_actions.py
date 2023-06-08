@@ -78,7 +78,7 @@ class Database:
 		:return:
 		"""
 		self.db = mysql.connector.connect(
-				user='root', password='root', host='mysql', port=3306, database="offers"
+				user='root', password='inne_niz_root', host='mysql', port=3306, database="offers"
 			)
 		self.cursor = self.db.cursor()
 		print("Db connected")

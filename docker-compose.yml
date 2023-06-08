@@ -44,13 +44,13 @@ services:
     #   - kafka
     #   - mysql
     command: >
-      sh -c "uvicorn src.endpoints:app --host 0.0.0.0 --port 8000 &
+      sh -c "uvicorn src.endpoints:app --host 0.0.0.0 --port 8069 &
               python /src/db_listener.py"
     depends_on:
       - kafka
       - mysql
     ports:
-      - 8000:8000
+      - 8069:8069
     networks:
       - kafka-net
 
@@ -62,7 +62,7 @@ services:
     restart: always
     environment:
        MYSQL_DATABASE: 'offers'
-       MYSQL_ROOT_PASSWORD: 'root'
+       MYSQL_ROOT_PASSWORD: 'inne_niz_root'
     ports:
        - '3306:3306'
     networks:
