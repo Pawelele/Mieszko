@@ -2,9 +2,11 @@ import SearchResult from '../SearchResult/SearchResult';
 import classes from './SearchResults.module.css';
 import Modal from '../FlatModal/FlatModal';
 import { useState } from 'react';
+import PredictModal from '../PredicitonModal/PredictionModal';
 
 const SearchResults = ({ results }) => {
   const [modalOpened, setModalOpened] = useState(false);
+  const [predictionModalOpened, setPredicitonModalOpened] = useState(false);
   const [modalData, setModalData] = useState(null);
 
   const resultClickHandler = (searchResult) => {
@@ -18,6 +20,10 @@ const SearchResults = ({ results }) => {
     setModalOpened(false);
   }
 
+  const closePredictionModalHandler = () => {
+    setPredicitonModalOpened(false);
+  }
+
   return (
     <div className={classes.wrapper}>
       {results.map((result) => (
@@ -27,6 +33,8 @@ const SearchResults = ({ results }) => {
       ))}
 
       {modalOpened && <Modal flat={modalData} onClose={closeModalHandler} />}
+      {predictionModalOpened && <PredictModal onClose={closePredictionModalHandler} />}
+
     </div>
   )
 }

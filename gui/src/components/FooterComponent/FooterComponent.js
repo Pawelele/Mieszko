@@ -15,7 +15,7 @@ const FooterComponent = () => {
         <NavLink to="/kontakt">Kontakt</NavLink>
       </div>
       <div className={classes.text}>
-        2023 Mieszko. Wszelkie prawa zastrzezoneC.
+        2023 Mieszko. Wszelkie prawa zastrzeżone ©
       </div>
     </footer>
   )
