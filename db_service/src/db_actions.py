@@ -1,8 +1,11 @@
+import sqlite3
+
 import mysql.connector
 
 
 def singleton(cls):
 	instances = {}
+
 	def getinstance(*args, **kwargs):
 		if cls not in instances:
 			instances[cls] = cls(*args, **kwargs)
@@ -51,6 +54,8 @@ class Database:
 				# MS TODO: Superłatka z braku laku
 				return None
 			except KeyError:
+				return None
+			except sqlite3.Error:
 				return None
 
 	def get_dict_from_body(self, body):
