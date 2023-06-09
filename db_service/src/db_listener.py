@@ -16,7 +16,9 @@ logging.basicConfig(level=logging.DEBUG)
 # Create a logger instance
 logger = logging.getLogger(__name__)
 
-sleep(10)
+sleep(30)
+
+logging.disable
 
 consumer = KafkaConsumer(
     'db_topic',

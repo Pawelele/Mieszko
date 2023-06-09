@@ -15,7 +15,7 @@ const Modal = (props) => {
   const predictPrice = (event) => {
     event.preventDefault();
     console.log('predict price clicked');
-    fetch('http://localhost:8070/price_prediction?' + new URLSearchParams({rooms: rooms, area: area}))
+    fetch('http://localhost:8070/price_prediction?' + new URLSearchParams({rooms: rooms, area: area}), {mode: 'no-cors'})
       .then(response => response.json())
       .then(data => setPrice(data.predicted_price))
       .catch(error => setError(error));
