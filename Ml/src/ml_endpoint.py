@@ -63,9 +63,9 @@ async def startup_event():
     task.add_task(run_scheduler)
 
 @app.get("/price_prediction")
-async def get_price_prediction(predict_data: PredictData):
+async def get_price_prediction(rooms: int, area: int):
     try:
-        price = predict_price('ml_data.json', predict_data.rooms, predict_data.area)
+        price = predict_price('ml_data.json', rooms, area)
         return {"predicted_price": price}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

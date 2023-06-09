@@ -6,7 +6,7 @@ import PredictModal from '../PredicitonModal/PredictionModal';
 
 const SearchResults = ({ results }) => {
   const [modalOpened, setModalOpened] = useState(false);
-  const [predictionModalOpened, setPredicitonModalOpened] = useState(false);
+  const [predictionModalOpened, setPredicitonModalOpened] = useState(true);
   const [modalData, setModalData] = useState(null);
 
   const resultClickHandler = (searchResult) => {
