@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 
 const FlatModal = (props) => {
   const closeModalHandler = () => {
-    console.log('close modal clicked');
     props.onClose();
   }
 

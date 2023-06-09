@@ -10,8 +10,6 @@ const SearchResults = ({ results }) => {
   const [modalData, setModalData] = useState(null);
 
   const resultClickHandler = (searchResult) => {
-    console.log('result clicked');
-    console.log(searchResult);
     setModalData(searchResult);
     setModalOpened((prev) => !prev);
   }

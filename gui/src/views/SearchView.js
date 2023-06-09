@@ -79,7 +79,6 @@ const SearchView = () => {
   // }, [searchInputValue]);
 
   const fetchResults = (searchValue) => {
-    console.log('fetching results fired');
     setLoading(true);
     setResults([]);
     setFilteredResults([]);
@@ -94,7 +93,6 @@ const SearchView = () => {
       return response.json()
     })
     .then(data => {
-      console.log(data);
       setResults(data.offers);
       setLoading(false);
 
