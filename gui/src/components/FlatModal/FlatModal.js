@@ -35,10 +35,17 @@ const FlatModal = (props) => {
   );
 }
 
+const Backdrop = (props) => {
+  return (
+    <div className={classes.backdrop} onClick={props.onClose}></div>
+  )
+}
+
 const Modal = (props) => {
   return (
     <>
       {ReactDOM.createPortal(<FlatModal flat={props.flat} onClose={props.onClose} />, document.getElementById('modal-root'))}
+      {ReactDOM.createPortal(<Backdrop onClose={props.onClose} />, document.getElementById('backdrop-root'))}
     </>
   )
 }

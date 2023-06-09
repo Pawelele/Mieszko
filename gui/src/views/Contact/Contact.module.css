@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  padding: 0 80px;
+  text-align: center;
+}
+
+.paragraph, .contactInfo p {
+  font-size: 16px;
+  line-height: 17px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.contactInfo, .contactForm {
+  width: 600px;
+  margin-bottom: 2em;
+}
+
+.contactForm form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contactForm form label {
+  margin-bottom: 0.5em;
+}
+.contactForm form input, .contactForm form textarea {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  width: 500px;
+}
+
+.contactForm form input[type="submit"] {
+  cursor: pointer;
+  background-color: #00FFEF;
+  color: black;
+  border: none;
+  padding: 1em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+}
+
+.contactForm form input[type="submit"]:hover {
+  background-color: #5bfff4;
+  color: black;
+}
