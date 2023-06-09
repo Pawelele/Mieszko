@@ -86,7 +86,7 @@ const SearchView = () => {
     setError(null);
 
 
-    fetch('http://127.0.0.1:8000/get_offers2?' + new URLSearchParams({city: searchValue}))
+    fetch('http://127.0.0.1:8069/get_offers2?' + new URLSearchParams({city: searchValue}))
     .then(response => {
       if(!response.ok) {
         throw new Error('Something went wrong!');

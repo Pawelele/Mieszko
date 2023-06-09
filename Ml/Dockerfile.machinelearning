@@ -7,6 +7,6 @@ COPY /src/ml_endpoint.py /src/ml_endpoint.py
 COPY /src/price_prediction.py /src/price_prediction.py
 
 WORKDIR "/src"
-RUN uvicorn ml_endpoint:app --host 0.0.0.0 --port 8000 
+# RUN uvicorn ml_endpoint:app --host 0.0.0.0 --port 8000
 
 
