@@ -57,6 +57,8 @@ class Database:
 				return None
 			except sqlite3.Error:
 				return None
+			except:
+				return None
 
 	def get_dict_from_body(self, body):
 		print(body)

@@ -4,3 +4,22 @@
   gap: 15px;
   margin-top: 74px;
 }
+
+.predictBtn {
+  position: fixed;
+  top: 200px;
+  right: 40px;
+  width: 90px;
+  height: 40px;
+  background-color: #00FFEF;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.predictBtn:hover {
+  background-color: #5cfff4;
+}

@@ -19,8 +19,8 @@ const MainNavigation = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/ulubione" activeClassName="active">
-              <button className={classes.button}>Ulubione</button>
+            <NavLink to="/onas" activeClassName="active">
+              <button className={classes.button}>O nas</button>
             </NavLink>
           </li>
         </ul>

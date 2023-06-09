@@ -62,7 +62,6 @@ class CrawlingSpider(CrawlSpider):
 
         for data in datas:
             clean_data = self.clean_data(data)
-            logger.info("Pushed message")
             print(clean_data)
             try:
                 self.send_message('db_topic', str(

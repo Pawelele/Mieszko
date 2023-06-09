@@ -6,12 +6,10 @@ import PredictModal from '../PredicitonModal/PredictionModal';
 
 const SearchResults = ({ results }) => {
   const [modalOpened, setModalOpened] = useState(false);
-  const [predictionModalOpened, setPredicitonModalOpened] = useState(true);
+  const [predictionModalOpened, setPredicitonModalOpened] = useState(false);
   const [modalData, setModalData] = useState(null);
 
   const resultClickHandler = (searchResult) => {
-    console.log('result clicked');
-    console.log(searchResult);
     setModalData(searchResult);
     setModalOpened((prev) => !prev);
   }
@@ -31,6 +29,13 @@ const SearchResults = ({ results }) => {
           <SearchResult key={result.id} searchResult={result} onClick={resultClickHandler} />
         </div>
       ))}
+
+
+      <button
+        className={classes.predictBtn}
+        onClick={() => setPredicitonModalOpened((prev) => !prev)}
+      >Price AI</button>
+
 
       {modalOpened && <Modal flat={modalData} onClose={closeModalHandler} />}
       {predictionModalOpened && <PredictModal onClose={closePredictionModalHandler} />}
